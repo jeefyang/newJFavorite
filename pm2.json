@@ -9,7 +9,7 @@
     "watch_options": {
         "followSymlinks": false
     },
-    "watch_delay": "3000",
+    "watch_delay": "2000",
     "watch": [
         "build_node",
         "favorite"
