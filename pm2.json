@@ -1,0 +1,20 @@
+{
+    "name": "favoriteWeb",
+    "script": "node ./build_node/main.js favoriteConfig.jsonc",
+    "merge_logs": false,
+    "restart_delay": 60000000,
+    "log_date_format": "YYYY-MM-DD HH:mm:ss",
+    "out_file": "./favoriteWeb.log",
+    "error_file": "./favoriteWeb.err.log",
+    "watch_options": {
+        "followSymlinks": false
+    },
+    "watch_delay": "3000",
+    "watch": [
+        "build_node",
+        "favorite"
+    ],
+    "ignore_watch": [
+        "node_modules"
+    ]
+}

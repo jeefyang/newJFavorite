@@ -16,7 +16,7 @@ export class FavoriteServe {
             this.webDir = "./.dev_web"
         }
         else if (import.meta.env.MODE == "production") {
-            this.webDir = "./.build_web"
+            this.webDir = "./build_web"
         }
     }
 
