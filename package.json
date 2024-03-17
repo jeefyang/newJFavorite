@@ -1,0 +1,22 @@
+{
+  "name": "quickfavorite",
+  "version": "0.0.0",
+  "scripts": {
+    "dev:onlyweb":"vite -c vite.web.config.ts",
+    "dev:web": "vite build -w -c vite.web.config.ts --mode devlopment --outDir ./.dev_web",
+    "dev:node": "vite build -w -c vite.node.config.ts --mode devlopment --outDir ./.dev_node",
+    "dev:run": "node ./.dev_node/main.js favoriteConfig.jsonc",
+    "watch:dev:run": "nodemon --watch ./.dev_node/main.js --exec \"npm run dev:run\"",
+    "build:web": "tsc -p tsconfig.json && vite build -c vite.web.config.ts --outDir ./build_web",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.2",
+    "vite": "^2.6.4",
+    "vite-plugin-html": "^2.1.1",
+    "vite-plugin-node": "^3.1.0"
+  },
+  "dependencies": {
+    "@types/node": "^16.11.7"
+  }
+}
