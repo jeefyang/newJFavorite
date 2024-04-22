@@ -39,6 +39,7 @@ export class FavoriteServe {
             }
         })
         this.server = http.createServer((req, res) => {
+        
             // let urlParase = new URL(request.url)
             // let url: string = req.url || ""
             let urlParase = parse(req.url || "")
@@ -57,11 +58,12 @@ export class FavoriteServe {
                     curFavriteFilePath = favoriteFilePath
                 }
                 let favoriteData = fs.readFileSync(path.join(curFavriteFilePath), "utf-8")
-
+                
                 let filename = urlParase.pathname
                 filename = this.webIndexName
                 indexHtml = fs.readFileSync(path.join(this.webDir, filename), "utf-8")
-                indexHtml = indexHtml.replace("$getfavoritesUrl_serve$.data", `\`${favoriteData}\``)
+                indexHtml = indexHtml.replace("$getfavoritesUrl_serve$.data", `\`${encodeURIComponent(favoriteData)}\``)
+                indexHtml = indexHtml.replace("$getfavoritesUrl_serve$.type", `\`${path.extname(curFavriteFilePath).replace('.', "").toLocaleLowerCase()}\``)
                 res.write(indexHtml);//将index.html显示在客户端
                 res.end();
             }
@@ -119,7 +121,8 @@ export class FavoriteServe {
                     let fileUrl = `${this.config.favoriteDir}/${newFileName}`
                     fs.writeFileSync(fileUrl, buf)
                     console.log(`${newFileName}:写入成功!!!`)
-                    res.end()
+                    res.end("upload success!!!")
+                    
                 })
             }
             else {

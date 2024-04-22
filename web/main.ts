@@ -1,5 +1,7 @@
 import './style.css'
 declare let favoritesUrl: string
+declare let favoritesType: "html" | "json"
+
 
 type folderType = {
   type: "folder" | "url"
@@ -32,29 +34,39 @@ class Main {
 
   init() {
     // console.log(htmlStr)
-    let parser = new DOMParser()
-    let xmlDoc = parser.parseFromString(favoritesUrl, "text/html")
-    console.log(xmlDoc)
-    let tdList = xmlDoc.getElementsByTagName("dt")
-    let td: HTMLElement
-    for (let i = 0; i < tdList.length; i++) {
-      let temp = tdList[i]
-      if (temp?.children?.[0]?.innerHTML == "收藏夹栏") {
-        td = temp
-        break
+    console.log(favoritesType)
+    let a = decodeURIComponent(favoritesUrl)
+    console.log(a)
+    if (favoritesType == "html") {
+      let parser = new DOMParser()
+      let xmlDoc = parser.parseFromString(a, "text/html")
+      console.log(xmlDoc)
+      let tdList = xmlDoc.getElementsByTagName("dt")
+      let td: HTMLElement
+      for (let i = 0; i < tdList.length; i++) {
+        let temp = tdList[i]
+        if (temp?.children?.[0]?.innerHTML == "收藏夹栏") {
+          td = temp
+          break
+        }
       }
+      if (!td) {
+        return
+      }
+      this.data = {
+        name: "收藏夹栏",
+        type: "folder",
+        children: []
+      }
+      console.log(this.data)
+      console.log(td)
+      this.loopSetData(td, this.data)
     }
-    if (!td) {
-      return
+    else if (favoritesType == "json") {
+      // console.log(a)
+      this.data = JSON.parse(a)
     }
-    this.data = {
-      name: "收藏夹栏",
-      type: "folder",
-      children: []
-    }
-    console.log(this.data)
-    console.log(td)
-    this.loopSetData(td, this.data)
+
     if (this?.data?.children?.length > 0) {
       this.display()
     }

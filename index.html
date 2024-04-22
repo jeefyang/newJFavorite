@@ -8,6 +8,7 @@
   <script type="module">
     try {
       window["favoritesUrl"] = $getfavoritesUrl_test$.data
+      window["favoritesType"] = $getfavoritesUrl_test$.type
     }
     catch {
       console.warn("非测试模式")
@@ -16,6 +17,7 @@
   <script>
     try {
       window["favoritesUrl"] = $getfavoritesUrl_serve$.data
+      window["favoritesType"] = $getfavoritesUrl_serve$.type
     }
     catch {
       console.warn("测试模式")

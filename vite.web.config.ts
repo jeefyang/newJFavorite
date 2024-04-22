@@ -8,7 +8,8 @@ export default defineConfig(({ command, mode }) => {
         let data = fs.readFileSync("./favorites.html", "utf-8")
         return {
             define: {
-                $getfavoritesUrl_test$: JSON.stringify({ data: data })
+                $getfavoritesUrl_test$: JSON.stringify({ data: data,type:"html"})
+                
             }
             // serve 独有配置
         }
