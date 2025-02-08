@@ -1,0 +1,173 @@
+body {
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: auto;
+  margin: 0px;
+  background: #1c1c1e;
+  color: white;
+}
+
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  line-height: 30px;
+  font-weight: bold;
+}
+
+.sticky {
+  position: sticky;
+}
+
+.search {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.search input {
+  padding: 10px;
+  flex: 1;
+  margin-right: 10px;
+}
+
+.search button {
+  margin-right: 10px;
+}
+
+.path {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 2px solid #c3602d;
+  width: 100%;
+  overflow: auto;
+  scrollbar-width: 0;
+}
+
+.path::-webkit-scrollbar {
+  display: none;
+}
+
+.path button {
+  margin: 8px;
+}
+
+.page {
+  overflow: auto;
+}
+
+.page .box {
+  margin: 10px;
+}
+
+.page .box:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.page .folder {
+  color: #d7ba7d;
+}
+
+.page .url {
+  color: #fff;
+  text-align: center;
+}
+
+.page .href {
+  color: #d7ba7d;
+}
+
+.page .url img {
+  margin-right: 10px;
+}
+
+.history {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.history .back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* opacity: 0.8; */
+  backdrop-filter: blur(20px);
+}
+
+.history .box {
+  position: absolute;
+  top: 12vh;
+  left: 12vw;
+  width: 76vw;
+  height: 76vh;
+  background: #252e3859;
+  /* background: #f00; */
+  overflow: auto;
+}
+
+.history .box .name {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  color: #fff;
+  border-bottom: 1px solid #ffffff26;
+}
+
+.history .box .name div {
+  margin-right: 10px;
+}
+
+.history .box .name .title {
+  flex: 1;
+  margin-right: 10px;
+  word-break: break-word;
+}
+
+.history .box .name .title:hover{
+cursor: pointer;
+opacity: 0.8;
+}
+
+.bottom {
+  height: 60px;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  min-height: 20px;
+  min-width: 80px;
+  color: #fffffe;
+  background-color: #1989fa;
+}
+
+button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+a:link {
+  color: #1989fa;
+}
+
+a:visited {
+  color: #07c160;
+}

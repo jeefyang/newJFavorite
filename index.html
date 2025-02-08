@@ -1,36 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="module">
+      try {
+        window["favoritesUrl"] = $getfavoritesUrl_test$.data;
+        window["favoritesType"] = $getfavoritesUrl_test$.type;
+      } catch {
+        console.warn("非测试模式");
+      }
+    </script>
+    <script>
+      try {
+        window["favoritesUrl"] = $getfavoritesUrl_serve$.data;
+        window["favoritesType"] = $getfavoritesUrl_serve$.type;
+      } catch {
+        console.warn("测试模式");
+      }
+    </script>
+    <title>在线收藏夹</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script type="module">
-    try {
-      window["favoritesUrl"] = $getfavoritesUrl_test$.data
-      window["favoritesType"] = $getfavoritesUrl_test$.type
-    }
-    catch {
-      console.warn("非测试模式")
-    }
-  </script>
-  <script>
-    try {
-      window["favoritesUrl"] = $getfavoritesUrl_serve$.data
-      window["favoritesType"] = $getfavoritesUrl_serve$.type
-    }
-    catch {
-      console.warn("测试模式")
-    }
-  </script>
-  <title>在线收藏夹</title>
-</head>
+  <body>
+    <div id="app">
+      <div class="sticky">
+        <!-- 搜索 -->
+        <div class="search">
+          <input placeholder="请搜索" @change="e=>searchFn(e.target.value)" />
+          <button @click="quickUploadFileFn">上传</button>
+          <button @click="openHistoryFn">历史</button>
+        </div>
+        <!-- 路径 -->
+        <div class="path">
+          <template v-for="(item,index) in pathList" :key="index">
+            <button @click="selectPathFn(item,index)">{{item.name}}</button>
+          </template>
+        </div>
+      </div>
+      <!-- 列表 -->
+      <div class="page">
+        <!-- 搜索结果 -->
+        <template v-if="searchKey">
+          <div class="box" v-for="(item,index) in searchList" :key="index">
+            <div class="url" :title="item.url" @click="toUrlFn(item)">
+              <img :src="item.icon" />
+              <span>{{item.name}}</span>
+            </div>
+            <div class="href">{{item.url}}</div>
+          </div>
+        </template>
+        <!-- 非搜索 -->
+        <template v-else>
+          <div class="box" v-for="(item,index) in pageList" :key="index">
+            <!-- 文件夹 -->
+            <template v-if="item.type=='folder'">
+              <div class="folder" @click="toPathFn(item)" :title="`约有${item.children.length}个子项`">{{item.name}}</div>
+            </template>
+            <!-- 链接 -->
+            <template v-else>
+              <div class="url" :title="item.url" @click="toUrlFn(item)">
+                <img :src="item.icon" />
+                <span>{{item.name}}</span>
+              </div>
+            </template>
+          </div>
+        </template>
+      </div>
+      <div class="bottom"></div>
+      <!-- 历史列表 -->
+      <div class="history" v-if="displayHistory">
+        <div class="back" @click="displayHistory=false"></div>
+        <div class="box">
+          <div class="name" v-for="(item,index) in historyList" :key="index">
+            <div class="title" @click="toHistoryFn(item)">{{item}}</div>
+            <div><button @click="downloadHistoryFn(item)">下载</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<body>
-  <div id="app"></div>
-
-  <script type="module" src="/web/main.ts"></script>
-
-</body>
-
+    <script type="module" src="/web/main.ts"></script>
+  </body>
 </html>
