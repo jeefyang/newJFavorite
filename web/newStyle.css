@@ -158,6 +158,10 @@ button {
   min-width: 80px;
   color: #fffffe;
   background-color: #1989fa;
+  white-space: nowrap;
+  display:block;
+  overflow:hidden; 
+  text-overflow:ellipsis
 }
 
 button:hover {
