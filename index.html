@@ -36,7 +36,7 @@
         <!-- 路径 -->
         <div class="path">
           <template v-for="(item,index) in pathList" :key="index">
-            <button @click="selectPathFn(item,index)">{{item.name}}</button>
+            <button @click="selectPathFn(item,index)">{{item?.name}}</button>
           </template>
         </div>
       </div>
@@ -47,7 +47,7 @@
           <div class="box" v-for="(item,index) in searchList" :key="index">
             <div class="url" :title="item.url" @click="toUrlFn(item)">
               <img :src="item.icon" />
-              <span>{{item.name}}</span>
+              <span>{{item?.name}}</span>
             </div>
             <div class="href">{{item.url}}</div>
           </div>
