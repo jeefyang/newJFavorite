@@ -215,10 +215,12 @@ export class FavoriteServe {
             fs.mkdirSync(pathUrl, { recursive: true });
         }
         list = fs.readdirSync(pathUrl);
+        let newList: string[] = [];
         list.forEach((name) => {
             let filePath = path.join(pathUrl, name);
             let stat = fs.statSync(filePath);
             if (stat.isFile()) {
+                newList.push(name);
                 let time = stat.mtimeMs;
                 if (!maxTimeFile || maxTimeFile < time) {
                     favoriteFilePath = filePath;
@@ -226,6 +228,7 @@ export class FavoriteServe {
                 }
             }
         });
+        list = newList;
         return {
             list,
             favoriteFilePath,

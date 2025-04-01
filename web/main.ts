@@ -158,8 +158,7 @@ class Tools {
     async downloadHistory(filename: string) {
         return new Promise<string>(async (res, _rej) => {
             const urlData = new URL(location.href);
-            // urlData.searchParams.get("folder")
-            const response = await fetch(`/download?folder=${urlData.searchParams.get("folder")}`, {
+            const response = await fetch(`/download?folder=${urlData.searchParams.get("folder")||""}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -194,8 +193,7 @@ class Tools {
     /** 获取历史列表 */
     async getHistoryList() {
         const urlData = new URL(location.href);
-        // urlData.searchParams.get("folder")
-        let data: string[] = await (await fetch(`/getlist?folder=${urlData.searchParams.get("folder")}`)).json();
+        let data: string[] = await (await fetch(`/getlist?folder=${urlData.searchParams.get("folder") || ""}`)).json();
         return data;
     }
 }
