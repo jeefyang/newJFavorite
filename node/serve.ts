@@ -39,6 +39,7 @@ export class FavoriteServe {
                     if (!fs.existsSync(curFavriteFilePath) || !fs.statSync(curFavriteFilePath).isFile()) {
                         curFavriteFilePath = folderData.favoriteFilePath;
                     }
+                    
                     favoriteData = fs.readFileSync(curFavriteFilePath, "utf-8");
                 }
                 let filename = urlParase.pathname;

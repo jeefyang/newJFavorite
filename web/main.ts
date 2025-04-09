@@ -15,19 +15,16 @@ class Tools {
             let parser = new DOMParser();
             let xmlDoc = parser.parseFromString(a, "text/html");
             let tdList = xmlDoc.getElementsByTagName("dt");
+            console.log(tdList);
             let td: HTMLElement;
-            for (let i = 0; i < tdList.length; i++) {
-                let temp = tdList[i];
-                if (temp?.children?.[0]?.innerHTML == "收藏夹栏") {
-                    td = temp;
-                    break;
-                }
-            }
+            // @ts-ignore
+            let tagName = tdList?.[0]?.children?.[0]?.innerHTML
+            td = tdList?.[0];
             if (!td) {
                 return;
             }
             const data: folderType = {
-                name: "收藏夹栏",
+                name: tagName,
                 type: "folder",
                 children: [],
                 id: this.id
@@ -158,7 +155,7 @@ class Tools {
     async downloadHistory(filename: string) {
         return new Promise<string>(async (res, _rej) => {
             const urlData = new URL(location.href);
-            const response = await fetch(`/download?folder=${urlData.searchParams.get("folder")||""}`, {
+            const response = await fetch(`/download?folder=${urlData.searchParams.get("folder") || ""}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -228,7 +225,8 @@ createApp({
 
         /** 跳转历史大法 */
         const toHistoryFn = async (item: string) => {
-            location.replace(`?file=${item}`);
+            const urlData = new URL(location.href);
+            location.replace(`?folder=${urlData.searchParams.get("folder") || ""}&file=${item}`);
         };
 
         const downloadHistoryFn = async (item: string) => {
