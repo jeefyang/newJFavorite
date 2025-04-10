@@ -39,7 +39,7 @@ export class FavoriteServe {
                     if (!fs.existsSync(curFavriteFilePath) || !fs.statSync(curFavriteFilePath).isFile()) {
                         curFavriteFilePath = folderData.favoriteFilePath;
                     }
-                    
+
                     favoriteData = fs.readFileSync(curFavriteFilePath, "utf-8");
                 }
                 let filename = urlParase.pathname;
@@ -201,7 +201,6 @@ export class FavoriteServe {
 
     getHistoryList(folder?: string, isCreateDir?: boolean) {
         let favoriteFilePath: string = "";
-        let maxTimeFile: number = 0;
         let list: string[] = [];
 
         const pathUrl = path.join(this.config.favoriteDir, folder || "");
@@ -210,30 +209,30 @@ export class FavoriteServe {
                 return {
                     list,
                     favoriteFilePath,
-                    maxTimeFile
                 };
             }
             fs.mkdirSync(pathUrl, { recursive: true });
         }
         list = fs.readdirSync(pathUrl);
-        let newList: string[] = [];
-        list.forEach((name) => {
+        list = list.map(name => {
             let filePath = path.join(pathUrl, name);
             let stat = fs.statSync(filePath);
-            if (stat.isFile()) {
-                newList.push(name);
-                let time = stat.mtimeMs;
-                if (!maxTimeFile || maxTimeFile < time) {
-                    favoriteFilePath = filePath;
-                    maxTimeFile = time;
-                }
+            return {
+                isFile: stat.isFile(),
+                name: name,
+                time: stat.mtimeMs,
+                path: filePath
             }
-        });
-        list = newList;
+        }).filter(c => c.isFile)
+            .sort((a, b) => {
+                return b.time - a.time;
+            }).map(c => c.name);
+
+        list[0] && (favoriteFilePath = path.join(pathUrl, list[0]))
         return {
             list,
             favoriteFilePath,
-            maxTimeFile
+
         };
     }
 

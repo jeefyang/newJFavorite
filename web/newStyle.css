@@ -53,7 +53,10 @@ body {
   border-bottom: 2px solid #c3602d;
   width: 100%;
   overflow: auto;
-  scrollbar-width: 0;
+}
+
+.path::-webkit-scrollbar {
+  width: 0
 }
 
 .path::-webkit-scrollbar {
@@ -71,9 +74,17 @@ body {
 
 .page .box {
   margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.page .box:hover {
+.page .url:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.page .folder:hover {
   cursor: pointer;
   opacity: 0.8;
 }
@@ -95,6 +106,7 @@ body {
   margin-right: 10px;
 }
 
+
 .history {
   position: fixed;
   top: 0;
@@ -110,7 +122,9 @@ body {
   width: 100%;
   height: 100%;
   /* opacity: 0.8; */
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
+
 }
 
 .history .box {

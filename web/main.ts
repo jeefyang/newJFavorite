@@ -15,7 +15,6 @@ class Tools {
             let parser = new DOMParser();
             let xmlDoc = parser.parseFromString(a, "text/html");
             let tdList = xmlDoc.getElementsByTagName("dt");
-            console.log(tdList);
             let td: HTMLElement;
             // @ts-ignore
             let tagName = tdList?.[0]?.children?.[0]?.innerHTML
